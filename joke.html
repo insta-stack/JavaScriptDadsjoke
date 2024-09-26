@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://web.dev/static/articles/building/an-adaptive-favicon/image/example-light-theme-favic-d92b9def036e6.png" type="image/x-icon">
+    <title>Dad Jokes Generator</title>
+    <style>
+        body {
+            background-color: rgb(178, 0, 233);
+        }
+        #head {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-transform: capitalize;
+            text-decoration: underline;
+            padding-right: 5%;
+        }
+        .container {
+            border: 4px solid hwb(0 0% 100%);
+            width: 50%;
+            height: 32pc;
+            border-radius: 15px;
+            text-align: end;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 25%;
+        }
+        #img {
+            height: 3.5rem;
+            padding-right: 5%;
+            padding-top: 2%;
+            padding-left: 4%;
+            color: #f3f7fe;
+        }
+        #hm {
+            height: 12%;
+            padding: auto;
+            margin-top: 30%;
+            background-color: hsl(0, 0%, 0%);
+            color: hsla(280, 100%, 49%, 0.818);
+            width: 10%;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        button {
+            background-color: #f3f7fe;
+            color: #3b82f6;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 100px;
+            height: 45px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #3b82f6;
+            box-shadow: 0 0 0 5px #3b83f65f;
+            color: #fff;
+        }
+        .api_body {
+            padding: 20px;
+            font-size: 1.2rem;
+            color: hsl(0, 0%, 100%);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="head">Welcome To Dad Jokes Generator</h1>
+        <section class="api_body" id="api_body"></section>
+        <button id="hm">Generate</button>
+    </div>
+
+    <script>
+        const api_body = document.getElementById('api_body');
+        const apiUrl = "https://icanhazdadjoke.com/";
+
+        const fetchJoke = () => {
+            fetch(apiUrl, {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                api_body.innerHTML = data.joke; 
+            })
+            .catch(error => {
+                console.error("Error fetching joke: ", error);
+                api_body.innerHTML = "Sorry, couldn't fetch a joke!";
+            });
+        }
+
+        document.getElementById("hm").addEventListener('click', fetchJoke);
+    </script>
+</body>
+</html>
